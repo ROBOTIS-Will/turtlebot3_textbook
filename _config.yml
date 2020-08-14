@@ -11,7 +11,7 @@ title                    : "TB3 Textbook"
 title_separator          : "-"
 name                     : "TB3 Textbook"
 description              : "TB3 Textbook"
-url                      : "https://robotis-will.github.io"
+url                      : "https://github.com/ROBOTIS-Will/turtlebot3_textbook"
 baseurl                  : 
 repository               : ROBOTIS-Will/turtlebot3_textbook
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
