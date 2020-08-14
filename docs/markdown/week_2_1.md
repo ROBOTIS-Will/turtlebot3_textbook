@@ -43,7 +43,7 @@ hlds_laser.launch를 실행하면 hlds_laser_publisher 노드가 생성되어 �
 {% endcapture %}
 <div class="notice--success">{{ capture00 | markdownify }}</div>
 
-### RVizとhlds_laser_publisher 노드 실행
+### RViz에서 hlds_laser_publisher 노드 실행
 ```bash
 $ roslaunch hls_lfcd_lds_driver view_hlds_laser.launch
 ```
@@ -118,14 +118,14 @@ LDS 센서의 값을 시각적으로 확인하기 위해서는 Qt Creator와 Qt 
 5. `CTRL` + `SHIFT` + `B`를 눌러 소스코드를 빌드합니다.
 6. 빌드가 성공적으로 완료되면 `CTRL` + `R`을 눌러 프로그램을 실행합니다.
 
-![](http://emanual.robotis.com/assets/images/platform/turtlebot3/appendix_lds/lds_gui.png)
+![](/assets/images/turtlebot3_textbook/lds_gui.png)
 
 ### Embedded 보드에서 실행하기
 
 LDS-01 센서는 OpenCR 또는 아두이노 보드에서 동작시켜볼 수 있습니다.  이 경우, 센서 데이터의 시각화를 위한 LCD 패널이 필요합니다.  
 LDS-01 센서의 TX, RX 케이블은 embedded 보드의 UART 핀과 호환되며, embedded 보드에 전원과 TX, RX 핀을 연결하여 사용할 수 있습니다. 실제 케이블의 색상은 아래 그림과 다를 수 있으므로 반드시 제품 데이터시트를 참고하시기 바랍니다.。
 
-![](/turtlebot3_textbook/assets/images/turtlebot3_textbook/lds_lines.png)
+![](/assets/images/turtlebot3_textbook/lds_lines.png)
 
 #### OpenCR에서 LDS센서 읽어오기
 OpenCR 보드에서 센서값을 읽어오려면 Arduino 예제를 OpenCR 보드에 업로드 해야합니다.
@@ -137,7 +137,7 @@ OpenCR 보드에서 센서값을 읽어오려면 Arduino 예제를 OpenCR 보드
 
 예제가 성공적으로 업로드되면 OpenCR과 연결된 LCD에 아래 이미지와 같이 센서의 값이 시각적으로 보여지게 됩니다.
 
-![](/turtlebot3_textbook/assets/images/turtlebot3_textbook/011.png)
+![](/assets/images/turtlebot3_textbook/011.png)
 
 # SLAM
 
@@ -298,7 +298,7 @@ space key, s : force stop
 CTRL-C to quit
 ```
 
-![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/slam_running_for_mapping.png)
+![](/assets/images/turtlebot3_textbook/slam_running_for_mapping.png)
 
 
 ## 튜닝 가이드
@@ -312,7 +312,7 @@ Gmapping은 다양한 환경에 최적화된 성능을 구현하기 위해 여�
 ### map_update_interval 
 맵을 업데이트하는 시간(초)이 값이 낮을수록 지도가 더 자주 업데이트됩니다. 그러나 그만큼 더 큰 부하가 지도 계산에 필요합니다. 환경에 따라이 매개 변수를 설정하십시오.
 
-![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/tuning_map_update_interval.png)
+![](/assets/images/turtlebot3_textbook/tuning_map_update_interval.png)
 
 ### minimumScore 
 센서의 scan 데이터 일치 검사의 성공과 실패를 결정하는 최소 점수값을 설정합니다. 넓은 공간에서 로봇의 예상위치에 오차가 생기는 것을 완화할 수 있습니다. 적절하게 설정된 경우 아래와 같은 정보를 볼 수 있습니다. 
@@ -352,8 +352,8 @@ $ rosrun map_server map_saver -f ~/${map_name}
 ## 지도
 ROS에서 지도는 2차원 Occupancy Grid map(OGM)을 주로 사용합니다. 저장된 map.pgm 이미지파일을 열어보면 아래와 같이 로봇이 이동할 수 있는 흰색 영역과, 장애물로 식별되어 로봇이 이동할 수 없는 검정색 영역, 로봇이 탐험하지 않은 회색영역으로 구분됩니다. 이렇게 생성된 맵은 다음에 배울 Navigation에서 사용될 수 있습니다.
 
-![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/map.png)
+![](/assets/images/turtlebot3_textbook/map.png)
 
 아래의 이미지는 cartographer를 이용해서 광대한 영역의 지도를 생성한 예시입니다. 아래와 같은 맵을 생성하는 데에는 약 한시간 정도의 시간동안 총 350m의 거리를 로봇을 조종해서 만들 수 있었습니다.
 
-![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/large_map.png)
+![](/assets/images/turtlebot3_textbook/large_map.png)
