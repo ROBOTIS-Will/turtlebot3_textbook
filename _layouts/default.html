@@ -13,11 +13,11 @@
   <head>
     {% include head.html %}
     {% include head/custom.html %}
-    <!-- <script type="text/javascript" src="/assets/js/plugins/elasticlunr.js"></script>
-    <script src="/assets/js/search.js"></script> -->
+    <script type="text/javascript" src="/assets/js/plugins/elasticlunr.js"></script>
+    <script src="/assets/js/search.js"></script>
     <!-- <script src="/assets/js/robotis_product_parse.js"></script> -->
     <!-- <script type="text/javascript" src="/assets/js/plugins/lunr.js"></script> -->
-    <!-- <script>
+    <script>
       var toggle_google = 0;
       var toggle_search_tool = 0;
       var toggle_search_result = 0;
@@ -48,8 +48,8 @@
           toggle_search_tool = 0;
         }
       }
-    </script> -->
-    <!-- <script>
+    </script>
+    <script>
     $(document).ready(function() {
       $('.blank').attr('target', '_blank');
     	$('.popup').magnificPopup({
@@ -108,8 +108,8 @@
           });
         });
       });
-    </script> -->
-    <!-- <script>
+    </script>
+    <script>
       window.onscroll = function () {
         var offset = 64 - $(window).scrollTop();
         if(offset < 0) { offset = 0; }
@@ -119,8 +119,8 @@
         $(".searchbox").css("top", offset);           //sticky searchbox
         // console.log(offset);
       };
-    </script> -->
-    <!-- <script>
+    </script>
+    <script>
       var toggle = 0;
 
       function extendnav() {
@@ -133,7 +133,7 @@
           toggle = 0;
         }
       }
-    </script> -->
+    </script>
     <script>
       function copyurl(item)
       {
@@ -157,20 +157,20 @@
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
 
     {% include browser-upgrade.html %}
-    <!-- {% include masthead.html %} -->
+    {% include masthead.html %}
 
     {{ content }}
 
-    <!-- {% if page.layout == 'archive' %}
+    {% if page.layout == 'archive' %}
     <div class="page__footer archive_footer">
     {% else %}
     <div class="page__footer splash_footer">
-    {% endif %} -->
+    {% endif %}
       <footer>
         {% include footer/custom.html %}
-        <!-- {% include footer.html %} -->
+        {% include footer.html %}
       </footer>
-    <!-- </div> -->
+    </div>
 
     {% include scripts.html %}
 

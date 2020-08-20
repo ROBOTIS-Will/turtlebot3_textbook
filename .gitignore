@@ -5,3 +5,7 @@ _site/
 .sass-cache/
 .jekyll-metadata
 .vscode
+raw_index.json
+raw_index_kr.json
+search_index.json
+search_index_kr.json

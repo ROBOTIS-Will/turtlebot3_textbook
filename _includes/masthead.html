@@ -1,4 +1,316 @@
 <div class="masthead">
-  
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <button class="search_button" onclick="extendsearchtool()">
+        <img class="logo" src="/assets/images/search_icon.png">
+      </button>
+      {% if page.lang=='kr' %}
+      <a class="site-title" href="http://emanual.robotis.com/docs/kr/">
+      {% elsif page.lang=='en' %}
+      <a class="site-title" href="http://emanual.robotis.com">
+      {% endif %}
+      <img class="logo" id="logo" src="/assets/images/robotis_emanual_logo.png"></a>
+
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+        <ul class="mobile_nav__items">
+        {% for nav in site.data.navigation.main %}
+
+          {% if page.lang=='kr' %}
+            {% if nav.titlekr %}
+              {% assign depth1_title=nav.titlekr %}
+              {% assign depth1_url=nav.url %}
+            {% else %}
+              {% assign depth1_title=null %}
+              {% assign depth1_url=null %}
+            {% endif %}
+          {% elsif page.lang=='en' %}
+            {% if nav.title %}
+              {% assign depth1_title=nav.title %}
+              {% assign depth1_url=nav.url %}
+            {% else %}
+              {% assign depth1_title=null %}
+              {% assign depth1_url=null %}
+            {% endif %}
+          {% else %}
+            {% assign depth1_title=null %}
+            {% assign depth1_url=null %}
+          {% endif %}
+
+          {% if nav.children != null %}
+          <li class="mobile_depth_1">
+            <input type="checkbox" name="mobile_nav_depth_1" id="{{ depth1_title }}">
+            <label for="{{ depth1_title }}">{% if depth1_title contains '*' %}{{ depth1_title | remove:'*' }} <span class="fa-stack fa-2x"><i class="fa fa-usd fa-stack-1x" style="color:white"></i><i class="fa fa-ban fa-stack-2x" style="color:red"></i></span>{% else %}{{ depth1_title }}{% endif %}</label>
+            <ul>
+            {% for child in nav.children %}
+              {% if page.lang=='kr' %}
+                {% if child.titlekr %}
+                  {% assign depth2_title=child.titlekr %}
+                  {% assign depth2_url=child.url %}
+                {% else %}
+                  {% assign depth2_title=null %}
+                  {% assign depth2_url=null %}
+                {% endif %}
+              {% elsif page.lang=='en' %}
+                {% if child.title %}
+                  {% assign depth2_title=child.title %}
+                  {% assign depth2_url=child.url %}
+                {% else %}
+                  {% assign depth2_title=null %}
+                  {% assign depth2_url=null %}
+                {% endif %}
+              {% else %}
+                {% assign depth2_title=null %}
+                {% assign depth2_url=null %}
+              {% endif %}
+
+              {% if child.children != null %}
+                {% if depth2_title != null %}
+                  <li class="mobile_depth_2">
+                    <input type="radio" name="sublevel" id="{{ depth1_title }}{{ depth2_title }}">
+                    <label for="{{ depth1_title }}{{ depth2_title }}">{% if depth2_title contains '*' %}{{ depth2_title | remove:'*' }} <span class="fa-stack fa-2x"><i class="fa fa-usd fa-stack-1x" style="color:white"></i><i class="fa fa-ban fa-stack-2x" style="color:red"></i></span>{% else %}{{ depth2_title }}{% endif %}</label>
+                    <ul>
+                    {% for grandchild in child.children %}
+                      {% if page.lang=='kr' %}
+                        {% if grandchild.titlekr %}
+                          {% assign depth3_title=grandchild.titlekr %}
+                          {% assign depth3_url=grandchild.url %}
+                        {% else %}
+                          {% assign depth3_title=null %}
+                          {% assign depth3_url=null %}
+                        {% endif %}
+                      {% elsif page.lang=='en' %}
+                        {% if grandchild.title %}
+                          {% assign depth3_title=grandchild.title %}
+                          {% assign depth3_url=grandchild.url %}
+                        {% else %}
+                          {% assign depth3_title=null %}
+                          {% assign depth3_url=null %}
+                        {% endif %}
+                      {% else %}
+                        {% assign depth3_title=null %}
+                        {% assign depth3_url=null %}
+                      {% endif %}
+                      {% if depth3_title != null %}
+                        <li class="mobile_depth_3">
+                          <a href="{{ site.url }}{{ site.baseurl }}/docs/{{page.lang}}{{ depth3_url }}" class="{{ active }}">{% if depth3_title contains '*' %}{{ depth3_title | remove:'*' }} <span class="fa-stack fa-2x"><i class="fa fa-usd fa-stack-1x" style="color:white"></i><i class="fa fa-ban fa-stack-2x" style="color:red"></i></span>{% else %}{{ depth3_title }}{% endif %}</a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                    </ul>
+                  </li>
+                {% endif %}
+              {% else %}
+                {% if depth2_title != null %}
+                  <li class="mobile_depth_2">
+                    <a href="{{ site.url }}{{ site.baseurl }}/docs/{{ page.lang }}{{ depth2_url }}">{{ depth2_title }}</a>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            </ul>
+          {% else %}
+          <li class="mobile_depth_1">
+            <a href="{{ site.url }}{{ site.baseurl }}/docs/{{page.lang}}{{ depth1_url }}">{{ depth1_title }}</a>
+          </li>
+          {% endif %}
+
+          {% if nav.children != null %}
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+
+    </div>
+
+    <div class="container" id="container">
+      {% for link in site.data.navigation.main %}
+        {% if page.lang=='kr' %}
+          {% if link.titlekr %}
+            {% assign headtitle=link.titlekr %}
+            {% assign headurl=link.url %}
+          {% else %}
+            {% assign headtitle=null %}
+            {% assign headurl=null %}
+          {% endif %}
+        {% elsif page.lang=='en' %}
+          {% if link.title %}
+            {% assign headtitle=link.title %}
+            {% assign headurl=link.url %}
+          {% else %}
+            {% assign headtitle=null %}
+            {% assign headurl=null %}
+          {% endif %}
+        {% else %}
+          {% assign headtitle=null %}
+          {% assign headurl=null %}
+        {% endif %}
+
+        <div class="dropdown">
+          {% if headtitle %}
+            {% if headurl %}
+              {% if headurl contains "://" %}
+                <button class="dropbtn" onclick="movetopage('{{ headurl }}');">{% else %}
+                <button class="dropbtn" onclick="movetopage('{{ site.url }}{{ site.baseurl }}/docs/{{ page.lang }}{{ headurl }}');">{% endif %}
+            {% else %}
+              <button class="dropbtn">
+            {% endif %}{{headtitle}}
+          </button>
+          {% endif %}
+
+          {% if link.children != null %}
+            <div class="dropdown-content">
+            {% for shoulder in link.children %}
+              <div class="dropdown-content-wrapper">
+              {% if page.lang=='kr' %}
+                {% if shoulder.titlekr %}
+                  {% assign shouldertitle=shoulder.titlekr %}
+                  {% assign shoulderurl=shoulder.url %}
+                {% else %}
+                  {% assign shouldertitle=null %}
+                  {% assign shoulderurl=null %}
+                {% endif %}
+              {% elsif page.lang=='en' %}
+                {% if shoulder.title %}
+                  {% assign shouldertitle=shoulder.title %}
+                  {% assign shoulderurl=shoulder.url %}
+                {% else %}
+                  {% assign shouldertitle=null %}
+                  {% assign shoulderurl=null %}
+                {% endif %}
+              {% else %}
+                {% assign shouldertitle=null %}
+                {% assign shoulderurl=null %}
+              {% endif %}
+
+              {% if shouldertitle %}
+                {% if shoulderurl %}
+                  {% if shoulderurl contains "://" %}<a href="{{ shoulderurl }}">{% else %}
+                    <a href="{{ site.url }}{{ site.baseurl }}/docs/{{ page.lang }}{{ shoulderurl }}">{% endif %}{% else %}
+                <a>{% endif %}{% if shouldertitle contains '*' %}{{ shouldertitle | remove:'*' }} <span class="fa-stack fa-2x"><i class="fa fa-usd fa-stack-1x" style="color:white"></i><i class="fa fa-ban fa-stack-2x" style="color:red"></i></span>{% else %}{{ shouldertitle }}{% endif %}</a>
+              {% endif %}
+
+              {% if shoulder.children != null %}
+              <div class="dropdown-2nd-content">
+                {% for knee in shoulder.children %}
+                  {% if page.lang=='kr' %}
+                    {% if knee.titlekr %}
+                      {% assign kneetitle=knee.titlekr %}
+                      {% assign kneeurl=knee.url %}
+                    {% else %}
+                      {% assign kneetitle=null %}
+                      {% assign kneeurl=null %}
+                    {% endif %}
+                  {% elsif page.lang=='en' %}
+                    {% if knee.title %}
+                      {% assign kneetitle=knee.title %}
+                      {% assign kneeurl=knee.url %}
+                    {% else %}
+                      {% assign kneetitle=null %}
+                      {% assign kneeurl=null %}
+                    {% endif %}
+                  {% else %}
+                    {% assign kneetitle=null %}
+                    {% assign kneeurl=null %}
+                  {% endif %}
+
+                  {% if kneetitle %}
+                    {% if kneeurl %}
+                      {% if kneeurl contains "://" %}<a href="{{ kneeurl }}">{% else %}<a href="{{ site.url }}{{ site.baseurl }}/docs/{{ page.lang }}{{ kneeurl }}">{% endif %}{% else %}
+                        <a>{% endif %}{% if kneetitle contains '*' %}{{ kneetitle | remove:'*' }} <span class="fa-stack fa-2x"><i class="fa fa-usd fa-stack-1x" style="color:white"></i><i class="fa fa-ban fa-stack-2x" style="color:red"></i></span>{% else %}{{ kneetitle }}{% endif %}</a>
+                    {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+
+            </div>
+            {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+    </div>
+
+    <button class="google_button" id="google_button" onclick="extendgoogletool()"><img src="https://www.google.com/images/cleardot.gif" class="goog-te-gadget-icon" alt="" style="background-image: url(&quot;https://translate.googleapis.com/translate_static/img/te_ctrl3.gif&quot;); background-position: -65px 0px;"></button>
+    <div class="google_tools" id="google_tools">
+      <!-- Google Translation -->
+      <div id="google_translate_element"></div><script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ar,de,es,fr,hi,ja,ko,pt,ru,sv,th,tr,vi,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true, gaTrack: true, gaId: 'UA-83196341'}, 'google_translate_element');
+      }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+      <!-- end of Google Translation -->
+      {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
+
+      {% assign availablelanguage = "N/A" %}
+      {% assign availableurl = null %}
+      {% for available in pages %}
+        {% if page.lang=='kr' %}
+          {% if available.lang=='kr' %}{% elsif available.lang=='en' %}{% assign availableurl = available.url %}{% assign availablelanguage = "English" %}{% else %}{% assign availablelanguage = "N/A" %}{% endif %}
+        {% elsif page.lang=='en' %}
+          {% if available.lang=='en' %}{% elsif available.lang=='kr' %}{% assign availableurl = available.url %}{% assign availablelanguage = "Korean" %}{% else %}{% assign availablelanguage = "N/A" %}{% endif %}
+        {% else %}
+        {% endif %}
+      {% endfor %}
+      <a href="{{ availableurl | absolute_url }}"><button class="switch_ko_en" id="switch_ko_en">{{ availablelanguage }}</button></a>
+    </div>
+
+    <div class="community_link">
+      {% if page.lang=='kr' %}
+      <a href="http://www.robotis.com" style="margin-left: 10px;"><img class="logo" src="/assets/images/robotis_logo.png"> ROBOTIS</a>
+      {% elsif page.lang=='en' %}
+      <a href="http://en.robotis.com" style="margin-left: 10px;"><img class="logo" src="/assets/images/robotis_logo.png"> ROBOTIS</a>
+      {% endif %}
+      <a href="https://community.robotsource.org/" style="margin-left: 10px;"><img class="logo" src="/assets/images/robotsource_logo.png"> Robot Source</a>
+      <a href="https://github.com/ROBOTIS-GIT" style="margin-left: 10px;"><img class="logo" src="/assets/images/github_logo.png"> GitHub</a>
+    </div>
+    <div class="community_link_medium">
+      {% if page.lang=='kr' %}
+      <a href="http://www.robotis.com"><img class="logo" src="/assets/images/robotis_logo.png"></a>
+      {% elsif page.lang=='en' %}
+      <a href="http://en.robotis.com"><img class="logo" src="/assets/images/robotis_logo.png"></a>
+      {% endif %}
+      <a href="https://community.robotsource.org/"><img class="logo" src="/assets/images/robotsource_logo.png"></a>
+      <a href="https://github.com/ROBOTIS-GIT"><img class="logo" src="/assets/images/github_logo.png"></a>
+    </div>
+    <div class="community_link_mobile">
+      {% if page.lang=='kr' %}
+      <button class="mobile_button" onclick="movetopage('http://www.robotis.com');" style="background-image: url(/assets/images/robotis_mobile_logo.png); width: 35%;">ROBOTIS</button>
+      {% elsif page.lang=='en' %}
+      <button class="mobile_button" onclick="movetopage('http://en.robotis.com');" style="background-image: url(/assets/images/robotis_mobile_logo.png); width: 35%;">ROBOTIS</button>
+      {% endif %}
+      <button class="mobile_button" onclick="movetopage('https://community.robotsource.org/');" style="background-image: url(/assets/images/robotsource_mobile_logo.png); width: 40%;">Robot Source</button>
+      <button class="mobile_button" onclick="movetopage('https://github.com/ROBOTIS-GIT');" style="background-image: url(/assets/images/github_mobile_logo.png); width: 30%;">GitHub</button>
+    </div>
+
+  </div>
 </div>
 
+{% if page.lang=='en' %}
+<!-- Elasticlunr Custom Search for English contents -->
+<form class="searchbox" id="search-form" style="background: #000;">
+  <input type="search" id="search_term" placeholder="Enter Search Terms"/>
+  <button type="submit" id="search_button"><img class="logo" src="/assets/images/search_icon.png"></button>
+</form>
+<div class="search-result" style="text-align: right;"></div>
+<!-- end of Elasticlunr Custom Search for English contents -->
+
+{% else %}
+<!-- Google Custom Search -->
+<form class="searchbox" method="get" id="site_search">
+  <script>
+    (function() {
+      var cx = '003548387656725317882:3pwl9jljqvi';
+      var gcse = document.createElement('script');
+      gcse.type = 'text/javascript';
+      gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(gcse, s);
+    })();
+  </script>
+  <gcse:search></gcse:search>
+</form>
+<!-- end of Google Custom Search -->
+{% endif %}

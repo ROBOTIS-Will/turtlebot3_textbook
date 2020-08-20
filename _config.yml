@@ -7,11 +7,11 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "TB3 Textbook"
+title                    : "ROBOTIS e-Manual"
 title_separator          : "-"
-name                     : "TB3 Textbook"
-description              : "TB3 Textbook"
-url                      : "https://github.com/ROBOTIS-Will/turtlebot3_textbook"
+name                     : "ROBOTIS"
+description              : "e-Manual wiki"
+url                      : "https://robotis-will.github.io/turtlebot3_textbook/"
 baseurl                  : 
 repository               : ROBOTIS-Will/turtlebot3_textbook
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -70,10 +70,10 @@ social:
 
 # Analytics
 analytics:
-  provider               : "" # false (default), "google", "google-universal", "custom"
+  provider               : # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          : ""
-    tracking_id_kr       : ""
+    tracking_id          : 
+    tracking_id_kr       : 
 
 
 # Site Author
